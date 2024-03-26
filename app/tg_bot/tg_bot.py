@@ -27,9 +27,10 @@ class TgBot:
 
     maintenance_end_timestamp = 0
 
-    def __init__(self, token: str, chat_id: str):
+    def __init__(self, token: str, chat_id: str, telegram_api: str = None):
         self.token = token
         self.develop_chat_id = chat_id
+        self.telegram_api = telegram_api
         if default_config('mode') == 'dev':
             logging.basicConfig(level=logging.DEBUG,
                                 format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -222,7 +223,7 @@ class TgBot:
     def run(self):
         updater = Updater(self.token)
         dispatcher = updater.dispatcher
-        self.reply = MessageReply(self.token)
+        self.reply = MessageReply(self.token, self.telegram_api)
 
         # Register the commands...
         dispatcher.add_handler(CommandHandler('start', self.command_start))
@@ -252,8 +253,13 @@ class MessageReply:
     bot = None
     chat_id = None
 
-    def __init__(self, bot_token):
-        self.bot = Bot(bot_token)
+    def __init__(self, bot_token, telegram_api):
+        if telegram_api:
+            base_url = f"https://{telegram_api}/bot"
+            base_file_url = f"https://{telegram_api}/file/bot"
+            self.bot = Bot(bot_token, base_url=base_url, base_file_url=base_file_url)
+        else:
+            self.bot = Bot(bot_token)
         i18n.load_path.append('app/lang')
         i18n.set('fallback', 'en-us')
 
