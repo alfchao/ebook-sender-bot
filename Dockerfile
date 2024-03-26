@@ -23,6 +23,7 @@ ENV SMTP_PASSWORD ''
 ## Telegram infomation
 ENV BOT_TOKEN ''
 ENV DEVELOPER_CHAT_ID ''
+ENV TELEGRAM_API ''
 
 # Install Calibere And Python
 RUN \

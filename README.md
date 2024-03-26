@@ -131,6 +131,8 @@ mailcow_mailbox_domain=mailcow_mailbox_domain
 bot_token=your_telegram_bot_token
 # your telegram chat id
 developer_chat_id=your_telegram_chat_id
+# telegram api
+telegram_api=your_telegram_api, default api.telegram.org
 ```
 
 ## Preview

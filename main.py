@@ -13,7 +13,8 @@ def register_db() -> None:
 def run_tg_bot() -> None:
     bot_token = telegram_config('bot_token')
     develop_chat_id = telegram_config('developer_chat_id')
-    bot = TgBot(bot_token, develop_chat_id)
+    telegram_api = telegram_config('telegram_api')
+    bot = TgBot(bot_token, develop_chat_id, telegram_api)
     bot.run()
 
 
